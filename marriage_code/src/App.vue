@@ -22,11 +22,12 @@ export default class App extends Vue {
 	mounted() {
 		console.log("testing app");
 		window.addEventListener("resize", () => {
-			var width = window.innerWidth;
-			if (width <= 1024) {
+			const width = window.innerWidth;
+			console.log(this.$router.currentRoute.path);
+			if (width <= 1024 && this.$router.currentRoute.path === "/") {
 				console.log("mobile");
 				router.push({ path: "home_m" });
-			} else {
+			} else if (this.$router.currentRoute.path === "/home_m") {
 				router.push("/");
 			}
 		});

@@ -42,7 +42,10 @@ export default class Home extends Vue {}
 		margin: 5px;
 		text-align: center; /* will center text in <p>, which is not a flex item */
 		&__heading {
-			padding: 20px;
+			padding: 10px;
+			padding-top: 10px;
+			padding-bottom: 15px;
+			padding-right: 16px;
 			border-radius: 15px;
 			width: auto;
 			height: auto;
@@ -57,7 +60,7 @@ export default class Home extends Vue {}
 				position: absolute;
 				bottom: 0;
 				color: #054d48;
-				right: 10px;
+				right: 5px;
 			}
 		}
 		&__button {
