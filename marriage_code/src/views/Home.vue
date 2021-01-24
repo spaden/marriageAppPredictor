@@ -12,13 +12,8 @@
 
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator";
-import HelloWorld from "@/components/HelloWorld.vue"; // @ is an alias to /src
 
-@Component({
-	components: {
-		HelloWorld,
-	},
-})
+@Component
 export default class Home extends Vue {}
 </script>
 <style scoped lang="scss">
@@ -27,9 +22,14 @@ export default class Home extends Vue {}
 	flex-direction: column; /* make main axis vertical */
 	justify-content: center; /* center items vertically, in this case */
 	align-items: center; /* center items horizontally, in this case */
-	background-image: url("../../src/assets/splashScreen4_veryHigh.jpg");
+	background-image: linear-gradient(
+			to bottom right,
+			rgba(58, 97, 134, 0.3),
+			rgba(137, 37, 62, 0.2)
+		),
+		url("../../src/assets/splashScreen4_veryHigh.jpg");
 	background-size: cover;
-	background-position: center top;
+	background-position: center;
 	margin-bottom: 20px;
 	margin-top: 15px;
 	width: 98%;

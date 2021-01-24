@@ -13,6 +13,26 @@
 		</div>
 	</div>
 </template>
+<script lang="ts">
+import { Component, Vue } from "vue-property-decorator";
+import router from "./router";
+
+@Component
+export default class App extends Vue {
+	mounted() {
+		console.log("testing app");
+		window.addEventListener("resize", () => {
+			var width = window.innerWidth;
+			if (width <= 1024) {
+				console.log("mobile");
+				router.push({ path: "home_m" });
+			} else {
+				router.push("/");
+			}
+		});
+	}
+}
+</script>
 <style lang="scss">
 #app {
 	font-family: Avenir, Helvetica, Arial, sans-serif;
