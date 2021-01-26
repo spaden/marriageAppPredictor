@@ -1,20 +1,27 @@
 <template>
 	<div id="container">
-		<div class="box box__heading">
+		<div class="box__heading">
 			“We meet our soulmates when we’re on our soul path.”
 			<span>– Karen M. Black</span>
 		</div>
-		<div class="box box__button">
-			<button type="button" class="btn">Check it out</button>
+		<div class="box__button">
+			<button @click="goNext" type="button" class="btn">Check it out</button>
 		</div>
 	</div>
 </template>
 
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator"
+import router from "../router"
 
 @Component
-export default class Home extends Vue {}
+export default class Home extends Vue {
+	goNext() {
+		if (this.$router.currentRoute.path === "/") {
+			this.$router.push("/quiz")
+		}
+	}
+}
 </script>
 <style scoped lang="scss">
 #container {
@@ -39,8 +46,6 @@ export default class Home extends Vue {}
 	font-size: 30px;
 	color: #258970;
 	.box {
-		margin: 5px;
-		text-align: center; /* will center text in <p>, which is not a flex item */
 		&__heading {
 			padding: 10px;
 			padding-top: 10px;
