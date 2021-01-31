@@ -66,6 +66,10 @@
 	export default class QuizPageWeb extends Vue {
 		multipleChoiceView = false
 		colorName = "blue"
+	
+		get isMobileView() {
+			return this.$store.state.isMobileView
+		}
 
 	}
 </script>

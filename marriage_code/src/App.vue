@@ -26,15 +26,15 @@ export default class App extends Vue {
 	]
 
 	mounted() {
-		console.log("testing app")
+		if (window.innerWidth <=500) {
+			this.$store.dispatch('changeView', true)
+		}
 		window.addEventListener("resize", () => {
 			const width = window.innerWidth
-			console.log(this.$router.currentRoute.path)
-			if (width <= 1024 && this.$router.currentRoute.path === "/") {
-				console.log("mobile")
-				router.push({ path: "home_m" })
-			} else if (width > 1024 && this.$router.currentRoute.path === "/home_m") {
-				router.push("/")
+			if (width <= 770) {
+				this.$store.dispatch('changeView', true)
+			} else if (width > 1024) {
+				this.$store.dispatch('changeView', false)
 			}
 		})
 		const item = Math.floor(Math.random() * this.testSrc.length)

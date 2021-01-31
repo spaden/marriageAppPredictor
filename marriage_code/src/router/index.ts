@@ -10,11 +10,6 @@ const routes: Array<RouteConfig> = [
 		component: Home,
 	},
 	{
-		path: "/home_m",
-		name: "Home_m",
-		component: () => import("../views/Home_mobile.vue"),
-	},
-	{
 		path: "/quiz",
 		name: "Quiz",
 		component: () => import("../views/Quiz_web.vue"),
