@@ -85,7 +85,7 @@
 			</div>
 		</div>
 
-		<div v-else class="box box__imageview">
+		<div v-else-if="!multipleChoiceView && !isMobileView" class="box box__imageview">
 			<div class="image">
 				<img
 					width="400px"
@@ -111,13 +111,56 @@
 				</div>
 			</div>
 		</div>
+		<div v-else-if="!multipleChoiceView && isMobileView" class="box__imageview--mobile">
+			<div class="image">
+				<img
+					width="300px"
+					height="285px"
+					src="https://github.com/spaden/hookdate.github.io/blob/master/five.jpg?raw=true"
+				/>
+			</div>
+			<br>
+			<div class="buttonsSelect--m"
+				 style="font-family: 'Changa', sans-serif;
+						font-weight: bold;
+						font-size: 20px;
+						margin-left: 20px;">
+				<div class="question">Do you like the picture?</div>
+				<br>
+				<div class="emojiButtons--m">
+					<div class="emojiText--m">
+						<img width="50px"
+							 height="50px" 
+							 src="/assets/in_love.PNG"
+							 style="margin-right: 40px" />
+						<span>Yes</span>
+					</div>
+					<br>
+					<div class="emojiText--m">
+						<img width="50px" 
+							 height="50px"
+							 src="/assets/vomit.PNG"
+							 style="margin-right: 40px" />
+						<span>No</span>
+					</div>
+					<br>
+					<div class="emojiText--m">
+						<img width="50px"
+						     height="50px"
+							 src="/assets/observer.PNG"
+							 style="margin-right: 40px" />
+						<span>Not Really</span>
+					</div>
+				</div>
+			</div>
+	    </div>
 	</div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 @Component
 export default class QuizPageWeb extends Vue {
-	multipleChoiceView = true
+	multipleChoiceView = false
 	colorName = "blue"
 
 	get isMobileView() {
@@ -146,7 +189,7 @@ export default class QuizPageWeb extends Vue {
 		padding: 50px;
 		transform: translateY(-100px);
 		margin: 0px 10px;
-
+		text-align: center;
 		&__choose {
 			margin-top: 30px;
 
@@ -215,6 +258,36 @@ export default class QuizPageWeb extends Vue {
 	}
 }
 
+.box__imageview--mobile {
+				.image {
+					padding: 2px;
+					background-color: rgba(255, 255, 255, 0.2);
+					border-radius: 15px;
+					img {
+						border-radius: 15px;
+						filter: drop-shadow(8px 5px 7px rgba(0, 0, 0, 0.25));
+					}
+					.buttonsSelect--m {
+						.question {
+							font-size: 20px !important;
+						}
+						.emojiButtons--m {
+							margin-top: 10px !important;
+							width: 100%;
+							.emojiText--m {
+								img {
+									filter: drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25));
+								}
+								span {
+									font-size: 40px;
+								}
+							}
+						}						
+					}
+				}	
+			}
+
+
 @media (max-width: 414px)  {
    .box {
 	   font-size: 24px !important;
@@ -228,7 +301,7 @@ export default class QuizPageWeb extends Vue {
 			   }
 			   margin-bottom: 20px;
 		   }
-	   }		
+	   }
    }
 }
 
