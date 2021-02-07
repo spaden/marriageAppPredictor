@@ -22,19 +22,19 @@ import router from "./router"
 export default class App extends Vue {
 	testSrc = [
 		"https://www.youtube.com/embed/w8YVqBs6kyE?autoplay=1&start=10",
-		"https://www.youtube.com/embed/3UwVodF5Yu8?autoplay=1&start=30&end=210",
+		"https://www.youtube.com/embed/3UwVodF5Yu8?autoplay=1&start=28",
 	]
 
 	mounted() {
-		if (window.innerWidth <=500) {
-			this.$store.dispatch('changeView', true)
+		if (window.innerWidth <= 500) {
+			this.$store.dispatch("changeView", true)
 		}
 		window.addEventListener("resize", () => {
 			const width = window.innerWidth
 			if (width <= 770) {
-				this.$store.dispatch('changeView', true)
+				this.$store.dispatch("changeView", true)
 			} else if (width > 1024) {
-				this.$store.dispatch('changeView', false)
+				this.$store.dispatch("changeView", false)
 			}
 		})
 		const item = Math.floor(Math.random() * this.testSrc.length)
@@ -42,7 +42,7 @@ export default class App extends Vue {
 
 		iframe.setAttribute("src", this.testSrc[item])
 
-		setTimeout(() => {
+		/*setTimeout(() => {
 			if (item === 1) {
 				setTimeout(() => {
 					iframe.setAttribute("src", this.testSrc[0])
@@ -52,7 +52,7 @@ export default class App extends Vue {
 					iframe.setAttribute("src", this.testSrc[1])
 				}, 4000)
 			}
-		}, 235000)
+		}, 235000)*/
 	}
 }
 </script>
