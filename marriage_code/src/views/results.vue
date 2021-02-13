@@ -1,33 +1,54 @@
 <template>
-    <div id="containerResults">
-        <br>
-        Test
+  <div id="containerResults">
+    <div class="result">
+      You will be married between 18 to 25 years of your age. The colors that you have choosen shows that you have a
+      burning desire to get married sooner. For you getting married is one of your main priorities.
     </div>
+  </div>
 </template>
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"
 @Component
 export default class Results extends Vue {
-    
+  which = 3
+  images = ["result_one.jpg", "result_two.jpg", "result_three.jpg", "result_four.jpg"]
 
+  mounted() {
+    const cont = document.getElementById("containerResults") as HTMLElement
+    const req = `${this.images[this.which]}`
+    const reqq = `${require("@/assets/" + req)}`
+    console.log(reqq)
+    cont.style.backgroundImage = `linear-gradient(to bottom right, rgba(58, 97, 134, 0.7), rgba(137, 37, 62, 0.8)), url('${reqq}')`
+  }
 }
 </script>
 <style lang="scss" scoped>
 #containerResults {
-    display: flex;
-	flex-direction: row;
-    justify-content: center;
-    background-image: linear-gradient(
-		to bottom right,
-		rgba(58, 97, 134, 0.3),
-		rgba(137, 37, 62, 0.2)
-	),
-	url("../../src/assets/splashScreen4_veryHigh.jpg");
-    background-size: cover;
-	background-position: center;
-	margin: 10px auto;
-	width: 98%;
-	height: 98vh;
-	border-radius: 30px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  background-image: linear-gradient(to bottom right, rgba(58, 97, 134, 0.7), rgba(137, 37, 62, 0.8)),
+    url("../../src/assets/home_mobile.jpg");
+  background-size: cover;
+  background-position: center;
+  margin: 10px 9px;
+  width: 98%;
+  height: 98vh;
+  border-radius: 20px;
+  .result {
+    min-width: 200px;
+    max-width: 800px;
+    margin: 0px 12px;
+    height: fit-content;
+    transform: translateY(-80px);
+    padding: 20px;
+    color: #201783;
+    font-family: "Caveat", cursive;
+    font-size: 26px;
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(6px);
+    border-radius: 19px;
+  }
 }
 </style>
