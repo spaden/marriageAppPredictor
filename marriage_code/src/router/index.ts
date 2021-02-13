@@ -14,6 +14,11 @@ const routes: Array<RouteConfig> = [
 		name: "Quiz",
 		component: () => import("../views/Quiz_web.vue"),
 	},
+	{
+		path: "/result",
+		name: "Result",
+		component: () => import("../views/results.vue")
+	}
 ];
 
 const router = new VueRouter({
