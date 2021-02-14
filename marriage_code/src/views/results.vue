@@ -1,6 +1,6 @@
 <template>
   <div id="containerResults">
-    <div class="result">
+    <div :class="isMobileView ? 'result__mobile' : 'result__web'">
       You will be married between 18 to 25 years of your age. The colors that you have choosen shows that you have a
       burning desire to get married sooner. For you getting married is one of your main priorities.
     </div>
@@ -10,8 +10,12 @@
 import { Component, Vue } from "vue-property-decorator"
 @Component
 export default class Results extends Vue {
-  which = 3
-  images = ["result_one.jpg", "result_two.jpg", "result_three.jpg", "result_four.jpg"]
+  which = 4
+  images = ["result_one.jpg", "result_two.jpg", "result_three.jpg", "result_four.jpg", "result_five.jpg"]
+
+  get isMobileView() {
+    return this.$store.state.isMobileView
+  }
 
   mounted() {
     const cont = document.getElementById("containerResults") as HTMLElement
@@ -19,6 +23,11 @@ export default class Results extends Vue {
     const reqq = `${require("@/assets/" + req)}`
     console.log(reqq)
     cont.style.backgroundImage = `linear-gradient(to bottom right, rgba(58, 97, 134, 0.7), rgba(137, 37, 62, 0.8)), url('${reqq}')`
+    if (this.which === 4) {
+      cont.style.backgroundPosition = "right"
+    } else {
+      cont.style.backgroundPosition = "center"
+    }
   }
 }
 </script>
@@ -32,20 +41,35 @@ export default class Results extends Vue {
     url("../../src/assets/home_mobile.jpg");
   background-size: cover;
   background-position: center;
-  margin: 10px 9px;
-  width: 98%;
-  height: 98vh;
+  margin: 5px 5px;
+  width: 98.8%;
+  height: 99vh;
   border-radius: 20px;
-  .result {
+  .result__web {
     min-width: 200px;
     max-width: 800px;
+    margin: 0px 12px;
+    height: fit-content;
+    transform: translateY(-90px);
+    padding: 20px;
+    color: #201783;
+    font-family: "Caveat", cursive;
+    font-size: 30px;
+    background: rgba(255, 255, 255, 0.28);
+    backdrop-filter: blur(6px);
+    border-radius: 19px;
+  }
+
+  .result__mobile {
+    min-width: 200px;
+    max-width: 500px;
     margin: 0px 12px;
     height: fit-content;
     transform: translateY(-80px);
     padding: 20px;
     color: #201783;
     font-family: "Caveat", cursive;
-    font-size: 26px;
+    font-size: 23px;
     background: rgba(255, 255, 255, 0.28);
     backdrop-filter: blur(6px);
     border-radius: 19px;
