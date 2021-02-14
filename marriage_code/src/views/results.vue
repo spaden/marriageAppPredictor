@@ -11,17 +11,19 @@ import { Component, Vue } from "vue-property-decorator"
 @Component
 export default class Results extends Vue {
   which = 4
-  images = ["result_one.jpg", "result_two.jpg", "result_three.jpg", "result_four.jpg", "result_five.jpg"]
-
+  images_web = ["resultOne_web.jpg", "resultTwo_web.jpg", "resultThree_web.jpg", "resultFour_mobile.jpg", "resultFive_web.jpg"]
+  images_mobile = ["resultOne_mobile.jpg", "resultTwo_mobile.jpg", "resultThree_mobile.jpg", "resultFour_mobile.jpg", "resultFive_mobile.jpg"]
   get isMobileView() {
     return this.$store.state.isMobileView
   }
 
   mounted() {
     const cont = document.getElementById("containerResults") as HTMLElement
-    const req = `${this.images[this.which]}`
+    var req = `${this.images_web[this.which]}`
+    if (this.isMobileView) {
+      req = `${this.images_mobile[this.which]}`
+    }
     const reqq = `${require("@/assets/" + req)}`
-    console.log(reqq)
     cont.style.backgroundImage = `linear-gradient(to bottom right, rgba(58, 97, 134, 0.7), rgba(137, 37, 62, 0.8)), url('${reqq}')`
   }
 }
