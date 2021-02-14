@@ -23,11 +23,6 @@ export default class Results extends Vue {
     const reqq = `${require("@/assets/" + req)}`
     console.log(reqq)
     cont.style.backgroundImage = `linear-gradient(to bottom right, rgba(58, 97, 134, 0.7), rgba(137, 37, 62, 0.8)), url('${reqq}')`
-    if (this.which === 4) {
-      cont.style.backgroundPosition = "right"
-    } else {
-      cont.style.backgroundPosition = "center"
-    }
   }
 }
 </script>

@@ -108,14 +108,14 @@
   </div>
 </template>
 <script lang="ts">
-import { Component, Vue } from "vue-property-decorator";
+import { Component, Vue } from "vue-property-decorator"
 @Component
 export default class QuizPageWeb extends Vue {
-  multipleChoiceView = false;
-  colorName = "blue";
+  multipleChoiceView = false
+  colorName = "blue"
 
   get isMobileView() {
-    return this.$store.state.isMobileView;
+    return this.$store.state.isMobileView
   }
 }
 </script>
