@@ -62,7 +62,7 @@ export default class Home extends Vue {
 	background-position: center;
 	margin: 10px auto;
 	width: 98%;
-	height: 97vh;
+	height: 98vh;
 	border-radius: 30px;
 	font-family: "Caveat", cursive;
 	font-size: 30px;
@@ -123,7 +123,7 @@ export default class Home extends Vue {
 	background-position: center;
 	margin: 10px auto;
 	width: 98%;
-	height: 97vh;
+	height: 98vh;
 	border-radius: 30px;
 	font-family: "Caveat", cursive;
 	font-size: 25px;
