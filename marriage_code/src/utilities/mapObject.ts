@@ -40,7 +40,7 @@ class MapResults {
     for (let i = 0; i < this.imageQuestions.length; i++) {
       wholeObjects.push(this.imageQuestions[i])
     }
-    console.log(wholeObjects)
+    // console.log(wholeObjects)
     return wholeObjects
   }
 }
