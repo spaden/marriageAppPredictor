@@ -1,8 +1,7 @@
 <template>
   <div id="containerResults">
     <div :class="isMobileView ? 'result__mobile' : 'result__web'">
-      You will be married between 18 to 25 years of your age. The colors that you have choosen shows that you have a
-      burning desire to get married sooner. For you getting married is one of your main priorities.
+      {{res}}
     </div>
     <br>
     <div :class="isMobileView ? 'sharePlz__mobile': 'sharePlz__web'">
@@ -19,6 +18,7 @@ import { Component, Vue } from "vue-property-decorator"
 @Component
 export default class Results extends Vue {
   which: number = 0
+  res = ''
   sharePlz = 'Please share this result with your friends!'
   images_web = [
     "resultOne_web.jpg", 
@@ -35,6 +35,14 @@ export default class Results extends Vue {
     "resultFive_mobile.jpg"
   ]
 
+  marriageAge = [
+    "You will be married between 18 to 25 years of your age. The colors that you have choosen shows that you have a burning desire to get married. For you getting married is one of your main priorities.",
+    "You will be married between 26 to 35 years. The colors that you have choosen shows that you see marriage as something normal and natural. You do not want to get married way too early, you wanna discover new things and enjoy life",
+    "You will be married between 36 to 45 years. The colors that you have choosen shows that you are someone who is looking for wisdom, experience and stability before embarking on this life. You certainly have other priorities in life, like realizing your dreams first, getting your hands on business with new ideas. Then marriage will come later.",
+    "You will be married between over 45 years. The colors you have choosen show that you only wish to marry later in life because you see marriage as a prison and you still want to enjoy your freedom.",
+    "The colors you have choosen shows that you see marriage in a very negative way. It doesn't mean that you will not find your soulmate, instead you just don't want to get married."
+  ]
+
   get isMobileView() {
     return this.$store.state.isMobileView
   }
@@ -42,6 +50,7 @@ export default class Results extends Vue {
   mounted() {
     console.log(this.$route.params)
     this.which = parseInt(this.$route.params.qy)
+    this.res = this.marriageAge[this.which]
     const cont = document.getElementById("containerResults") as HTMLElement
     var req = `${this.images_web[this.which]}`
     if (this.isMobileView) {

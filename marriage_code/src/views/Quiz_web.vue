@@ -1,8 +1,7 @@
 <template>
   <div id="container">
     <div v-if="multipleChoiceView && !isMobileView && !buttonClicked" class="box">
-      Choose your {{ colorName }}
-
+      Choose your {{ currentObj.question }}
       <div class="box__choose">
         <span class="circle circle__left">
           <svg height="100" width="100">
@@ -11,8 +10,8 @@
                     r="35" 
                     stroke="black" 
                     stroke-width="0.2" 
-                    fill="#BF09FC"
-                    @click="multipleChoiceChange(0)" />
+                    :fill="currentObj.colors[0]"
+                    @click="optionClicked(0)" />
           </svg>
         </span>
         <span class="circle cirlce__middle">
@@ -23,8 +22,8 @@
                     r="35"
                     stroke="black" 
                     stroke-width="0.2" 
-                    fill="#BF79D6"
-                    @click="multipleChoiceChange(1)" />
+                    :fill="currentObj.colors[1]"
+                    @click="optionClicked(1)" />
           </svg>
         </span>
         <span class="circle circle__left">
@@ -35,15 +34,15 @@
                     r="35" 
                     stroke="black" 
                     stroke-width="0.2" 
-                    fill="#6C2A82"
-                    @click="multipleChoiceChange(2)" />
+                    :fill="currentObj.colors[2]"
+                    @click="optionClicked(2)" />
           </svg>
         </span>
       </div>
     </div>
 
     <div v-if="multipleChoiceView && isMobileView" class="box">
-      Choose your {{ colorName }}
+      Choose your {{ currentObj.question }}
 
       <div class="box__choose--mobile">
         <span class="circle circle__left">
@@ -54,8 +53,8 @@
                     r="20" 
                     stroke="black" 
                     stroke-width="0.2" 
-                    fill="#BF09FC"
-                    @click="multipleChoiceChange(0)" />
+                    :fill="currentObj.colors[0]"
+                    @click="optionClicked(0)" />
           </svg>
         </span>
         <span class="circle cirlce__middle">
@@ -66,8 +65,8 @@
                     r="20" 
                     stroke="black" 
                     stroke-width="0.2" 
-                    fill="#BF79D6"
-                    @click="multipleChoiceChange(1)" />
+                    :fill="currentObj.colors[1]"
+                    @click="optionClicked(1)" />
           </svg>
         </span>
         <span class="circle circle__left">
@@ -78,8 +77,8 @@
                     r="20" 
                     stroke="black" 
                     stroke-width="0.2" 
-                    fill="#6C2A82"
-                    @click="multipleChoiceChange(2)" />
+                    :fill="currentObj.colors[2]"
+                    @click="optionClicked(2)" />
           </svg>
         </span>
       </div>
@@ -92,44 +91,51 @@
              class="image">
             <img width="400px"
                 height="385px"
-                src="https://github.com/spaden/hookdate.github.io/blob/master/five.jpg?raw=true"/>
+                :src="this.currentObj.image"/>
         </div>
       </transition>
-        <div class="buttonsSelect">
+      <div v-if="buttonClicked"
+           class="quote__web">
+             {{backQuote}}
+      </div>
+      <transition name="fade">
+        <div class="buttonsSelect"
+             v-if="!buttonClicked">
           Do you like the picture?
           <div class="emojiButtons">
             <div class="emojiText">
               <img width="50px" 
                   height="50px" 
                   src="/assets/in_love.PNG"
-                  @click="emojiClickChange(0)" />
+                  @click="optionClicked(0)" />
               <p>Yes</p>
             </div>
             <div class="emojiText">
               <img width="50px" 
                   height="50px" 
                   src="/assets/vomit.PNG"
-                  @click="emojiClickChange(1)" />
+                  @click="optionClicked(1)" />
               <p>No</p>
             </div>
             <div class="emojiText">
               <img width="50px" 
                   height="50px"
                   src="/assets/observer.PNG"
-                  @click="emojiClickChange(2)" />
+                  @click="optionClicked(2)" />
               <p>Not Really</p>
             </div>
-          </div>
+          </div>   
         </div>
+      </transition>
     </div>
-
+   
     <div v-else-if="!multipleChoiceView && isMobileView" class="box__imageview--mobile">
       <transition name="fade__mobile">
         <div v-if="!buttonClicked"
              class="image">
           <img width="300px"
                height="285px"
-               src="https://github.com/spaden/hookdate.github.io/blob/master/five.jpg?raw=true"/>
+               :src="currentObj.image"/>
         </div>
       </transition>
         <br />
@@ -148,7 +154,7 @@
                   height="50px" 
                   src="/assets/in_love.PNG" 
                   style="margin-right: 40px"
-                  @click="emojiClickChange(0)" />
+                  @click="optionClicked(0)" />
               <span>Yes</span>
             </div>
             <br />
@@ -157,7 +163,7 @@
                   height="50px" 
                   src="/assets/vomit.PNG" 
                   style="margin-right: 40px"
-                  @click="emojiClickChange(1)" />
+                  @click="optionClicked(1)" />
               <span>No</span>
             </div>
             <br />
@@ -166,7 +172,7 @@
                   height="50px" 
                   src="/assets/observer.PNG" 
                   style="margin-right: 40px"
-                  @click="emojiClickChange(2)" />
+                  @click="optionClicked(2)" />
               <span>Not Really</span>
             </div>
           </div>
@@ -174,7 +180,7 @@
       </transition>
       <div v-if="buttonClicked"
            class="quote__mobile">
-         {{backQuote}}
+           {{backQuote}}
       </div>
     </div>
   </div>
@@ -183,63 +189,63 @@
 import { Component, Vue } from "vue-property-decorator"
 @Component
 export default class QuizPageWeb extends Vue {
-  multipleChoiceView = false
-  colorName = "blue"
+  multipleChoiceView = true
+  resSum = 0
   buttonClicked = false
   backQuote = ''
   count=0
+  qstns = []
+  currentObj = null
   backQuotesArr = [
-    [
-      `We always hold hands. If I let go, she shops.`,
-      'Henry Youngman'
-    ],
-    [
-      `When a man opens a car door for his wife, it’s either a new car or a new wife.`,
-      'Prince Phillip'
-    ],
-    [
-      `Don’t make love by the garden gate, love is blind but the neighbours ain’t.`,
-      'Anonymous'
-    ],
-    [
-      `Before you marry a person you should first make them use a computer with slow Internet to see who they really are.`,
-      'Will Ferrell'
-    ],
-    [
-      `By all means, marry. If you get a good wife, you will be happy. If you get a bad one, you will be a philosopher.`,
-      'Socrates'
-    ],
-
-    
+    `Let's push each other in case any one of us is confronted with life issues.`,
+    `How about a long walk by the woods holding each others hand.`,
+    `Maybe we can't have kids, why not be each others for the rest of our lives!`,
+    `I was there for her to hold on to and give a shoulder to cry...`,
+    `Maybe a relationship between a husband and a wife is all  about being there for each other when they really need  you.`,
+    `She cuddles her arms around mine and loved listening to me, she never loosens up her hands just like an inseparable emotion.`,
+    `My subconscious told me that she was the one that I have been searching for all my life the moment I looked into her mesmerizing eyes.`,
+    `Kids do look cute and adorable when they are mad at you.`,
+    `There is nothing more pathetic in life than having to grieve alone`,
+    `Guarantee can be a stupid word for life!!`
   ]
+
+
   get isMobileView() {
     return this.$store.state.isMobileView
   }
 
-  multipleChoiceChange(index: number) {
-    console.log(index)
-    setTimeout(() => {
-      this.buttonClicked = false
-    }, 1000)
+  mounted() {
+    this.qstns = this.$store.state.wholeObjs
+    this.currentObj = this.qstns[this.count]
   }
-
-  emojiClickChange(index: number){
-    console.log(index)
-    
-    this.buttonClicked = true
-    setTimeout(() => {
-      console.log(this.count)
-       this.backQuote = this.backQuotesArr[this.count][0]
-    }, 500)
-    setTimeout(() => {
-      this.count+=1
-      if (this.count === this.backQuotesArr.length){
-        this.count = 0
+  
+  optionClicked(index: number) {
+    this.resSum += this.currentObj.weight[index]
+    this.count +=1
+    if (this.count == 10) {
+      let which = 0
+      if (this.resSum >= 100 && this.resSum <= 120) {
+          which = 0
+      } else if (this.resSum >= 130 && this.resSum <= 170) {
+            which = 1
+      } else if (this.resSum >= 180 && this.resSum <= 220) {
+            which = 2
+      } else if (this.resSum >= 230 && this.resSum <= 260) {
+            which = 3
+      } else if (this.resSum >= 270 && this.resSum <= 300) {
+           which = 4
       }
-      this.buttonClicked = false
-      this.backQuote = ''
-    }, 5000)
+      this.$router.push({path: `/result/${which}/me`})
+    }
+    this.currentObj = this.qstns[this.count]
+    if (this.count == 5) {
+      this.multipleChoiceView = false
+    }
+
+
   }
+ 
+
 }
 </script>
 <style lang="scss">
@@ -329,6 +335,18 @@ export default class QuizPageWeb extends Vue {
         }
       }
     }
+    
+  .quote__web {
+     color: #cd1fe0;
+     font-family: "Caveat", cursive;
+     font-size: 35px;
+     font-weight: bold;
+     margin-left: 20px;
+     margin-right: 20px;
+     background-color: #32E01F;
+     border-radius: 5px;
+     padding: 1px;
+  }
   }
 }
 
@@ -366,11 +384,12 @@ export default class QuizPageWeb extends Vue {
      font-size: 35px;
      font-weight: bold;
      margin-left: 20px;
+     margin-right: 20px;
      transform: translateY(-100px);
   }
 }
 
-@media (max-width: 414px) {
+@media (max-width: 422px) {
   .box {
     font-size: 24px !important;
     padding: 20px !important;

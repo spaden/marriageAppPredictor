@@ -43,7 +43,7 @@ export default class App extends Vue {
 
     iframe.setAttribute("src", this.testSrc[item])
 
-    /*setTimeout(() => {
+    setTimeout(() => {
 			if (item === 1) {
 				setTimeout(() => {
 					iframe.setAttribute("src", this.testSrc[0])
@@ -53,7 +53,7 @@ export default class App extends Vue {
 					iframe.setAttribute("src", this.testSrc[1])
 				}, 4000)
 			}
-		}, 235000)*/
+		}, 235000)
     this.generateQuestions()
   }
 
@@ -80,7 +80,12 @@ export default class App extends Vue {
     }
 
     var imageObjs: Array<ImageQuestion> = []
-    const images = ["one.jpg", "two.jpg", "three.jpg", "four.jpg", "five.jpg"]
+    const images = ["https://github.com/spaden/hookdate.github.io/blob/master/one.jpg?raw=true", 
+                    "https://github.com/spaden/hookdate.github.io/blob/master/two.jpg?raw=true", 
+                    "https://github.com/spaden/hookdate.github.io/blob/master/three.jpg?raw=true", 
+                    "https://github.com/spaden/hookdate.github.io/blob/master/four.jpg?raw=true", 
+                    "https://github.com/spaden/hookdate.github.io/blob/master/five.jpg?raw=true"
+                   ]
     for (var i = 0; i < images.length; i++) {
       const imgObj = new ImageQuestion(images[i], weights[i])
       imageObjs.push(imgObj)
@@ -88,6 +93,7 @@ export default class App extends Vue {
 
     var wholeObjs = new MapResults(colorObjs, imageObjs).questionsWhole()
     this.$store.dispatch('addWholeObjs', wholeObjs)
+    console.log
   }
 }
 </script>
