@@ -86,11 +86,8 @@ export default class App extends Vue {
       imageObjs.push(imgObj)
     }
 
-    //console.log(JSON.stringify(imageObjs))
-    //console.log(JSON.stringify(colorObjs))
     var wholeObjs = new MapResults(colorObjs, imageObjs).questionsWhole()
-    console.log(JSON.stringify(wholeObjs))
-
+    this.$store.dispatch('addWholeObjs', wholeObjs)
   }
 }
 </script>
