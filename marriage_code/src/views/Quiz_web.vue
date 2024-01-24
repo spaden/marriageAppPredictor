@@ -195,7 +195,7 @@ export default class QuizPageWeb extends Vue {
   backQuote = ''
   count=0
   qstns = []
-  currentObj = null
+  currentObj: any = null
   backQuotesArr = [
     `Let's push each other in case any one of us is confronted with life issues.`,
     `How about a long walk by the woods holding each others hand.`,
